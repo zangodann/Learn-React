@@ -7,10 +7,26 @@ import TabButton from './components/TabButton.jsx';
 // npm run dev
 
 function App() {
+  const topics = [
+  {
+    title: 'components',
+    content: 'Component'
+  },
+  {
+    title: 'jsx',
+    content: 'JSX'
+  },
+  {
+    title: 'props',
+    content: 'Props'
+  },
+  {
+    title: 'state',
+    content: 'State'
+  }];
   const [selectedTopic, setSelectedTopic] = useState('');
 
-  function handleSelect(selectedButton){
-    // selectedButton => 'Components', 'JSX', 'Props', 'State' 
+  function handleSelect(selectedButton){ 
     setSelectedTopic(selectedButton);
   }
 
@@ -45,30 +61,17 @@ function App() {
         <section id="examples">
           <h2>Examples</h2>
           <menu>
-            <TabButton
-              isSelected={selectedTopic === 'components'} 
-              onSelect={() => handleSelect('components')}
-              >
-              Components
-            </TabButton>
-            <TabButton
-              isSelected={selectedTopic === 'jsx'} 
-              onSelect={() => handleSelect('jsx')}
-              >
-              JSX
-            </TabButton>
-            <TabButton
-              isSelected={selectedTopic === 'props'} 
-              onSelect={() => handleSelect('props')}
-              >
-              Props
-            </TabButton>
-            <TabButton
-              isSelected={selectedTopic === 'state'} 
-              onSelect={() => handleSelect('state')}
-              >
-              State
-            </TabButton>
+            {
+              topics.map(topic =>(
+                <TabButton
+                  key={topic.title} 
+                  isSelected={selectedTopic === topic.title}
+                  onSelect={() => handleSelect(topic.title)}
+                >
+                {topic.content}  
+                </TabButton>
+              ))
+            }
           </menu>
           {tabContent}
         </section>
